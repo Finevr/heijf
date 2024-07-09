@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repository Integration</title>
+
+    <!-- Example: Inline styles for layout -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>GitHub Repository Integration</h1>
+
+    <div class="form-group">
+        <label for="repoUrl">GitHub Repository URL:</label>
+        <input type="text" id="repoUrl" placeholder="Enter GitHub repository URL">
+    </div>
+
+    <div class="form-group">
+        <label for="siteUrl">Site URL:</label>
+        <input type="text" id="siteUrl" placeholder="Enter site URL">
+    </div>
+
+    <button onclick="generateWebsite()">Generate Website</button>
+
+    <!-- Example: Placeholder div for generated content -->
+    <div id="github-content">
+        <!-- Content loaded from GitHub will appear here -->
+    </div>
+
+    <!-- Example: Inline script to handle button click and generate website -->
+    <script>
+        function generateWebsite() {
+            var repoUrl = document.getElementById('repoUrl').value.trim();
+            var siteUrl = document.getElementById('siteUrl').value.trim();
+            
+            if (repoUrl === '' || siteUrl === '') {
+                alert('Please enter both GitHub repository URL and site URL.');
+                return;
+            }
+
+            // Remove existing content
+            var githubContent = document.getElementById('github-content');
+            githubContent.innerHTML = '';
+
+            // Create link for CSS
+            var cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = repoUrl + '/raw/main/style.css';
+            document.head.appendChild(cssLink);
+
+            // Create script for JavaScript
+            var scriptTag = document.createElement('script');
+            scriptTag.src = repoUrl + '/raw/main/script.js';
+            document.body.appendChild(scriptTag);
+
+            // Create iframe for website preview
+            var iframe = document.createElement('iframe');
+            iframe.src = siteUrl;
+            iframe.style.width = '100%';
+            iframe.style.height = '500px';
+            githubContent.appendChild(iframe);
+        }
+    </script>
+</body>
+</html>
